@@ -1,20 +1,9 @@
-#include <iostream>
-#include <sstream>
+#include"Temperature.h"
 #include <cassert>
 #include <vector>
 using namespace std;
 char Scale[]="CKF";
 
-struct Temperature{
-double temp;
-char scale;
-};
-
-istream & operator >> (istream&in, Temperature&Temp);
-istream & operator >> (istream&in, Temperature&Temp){
-    in>>Temp.temp;
-    in>>Temp.scale;
-}
 void test_temperature_input(){
     Temperature Temp;
     string inp="10C";
@@ -35,23 +24,11 @@ void test_temperature_input(){
     assert (Temp.temp==-400);
     assert (Temp.scale=='F');
 };
-
-double convert (const Temperature& Temp, char scale_to){
-    double Kelvins;
-    Kelvins=Temp.temp;
-    switch (Temp.scale){
-    case 'C': Kelvins+=273;
-        break;
-    case 'F': Kelvins=((9.0/5)*(Temp.temp-273)+32);
-        break;
-
-    }
-}
 int
 main(){
    test_temperature_input();
 
-   /* size_t number;
+    size_t number;
     cerr << "Vvedite kolichestvo peremennyh:\n";
     cin >> number;
     size_t st;
@@ -81,14 +58,17 @@ main(){
         }
         col_count[index] = col_count[index] + 1;
     }
+
+    const size_t screen_width = 80;
+    const size_t axis_width = 4;
+
     cerr << "\nGistograma:\n";
 
-
-    cout << "+";
+   /* cout << "+";
     for (int j = 1; j<=(number+4); j++) {
         cout << "-";
     }
-    cout << "+"<< '\n';
+    cout << "+"<< '\n'; */
 
 
     for (int i = 0; i < st; i++) {
@@ -123,10 +103,11 @@ main(){
         }
         cout << '\n';
     }
-    cout << "+";
+    /*cout << "+";
     for (int j = 1; j<= (number + 4); j++) {
         cout << "-";
     }
     cout << "+" << '\n'; */
+
     return 0;
 }
