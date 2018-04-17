@@ -1,33 +1,9 @@
-#include"Temperature.h"
-#include <cassert>
+#include "Temperature.h"
 #include <vector>
 using namespace std;
 char Scale[]="CKF";
-
-void test_temperature_input(){
-    Temperature Temp;
-    string inp="10C";
-    istringstream iss(inp);
-    iss >> Temp;
-    assert (Temp.temp==10);
-    assert (Temp.scale=='C');
-
-    string inp1="0K";
-    istringstream iss1(inp1);
-    iss1 >> Temp;
-    assert (Temp.temp==0);
-    assert (Temp.scale=='K');
-
-    string inp2="-400F";
-    istringstream iss2(inp2);
-    iss2 >> Temp;
-    assert (Temp.temp==-400);
-    assert (Temp.scale=='F');
-};
 int
 main(){
-   test_temperature_input();
-
     size_t number;
     cerr << "Vvedite kolichestvo peremennyh:\n";
     cin >> number;
@@ -35,79 +11,71 @@ main(){
     cerr << "\nVvedite kolichestvo stolbcov:\n";
     cin >> st;
 
-    vector <double> X(number);
+    vector <Temperature> X(number);
     cerr << "\nVvedite massiv X:\n";
-    for (int i = 0; i<number; i++)
+    for (int i = 0; i<number; i++) {
         cin >> X[i];
-
-    double min, max;
-    min = X[0];
-    max = X[0];
-    for (double x : X) {
-        if (x < min)
-            min = x;
-        if (x> max)
-            max = x;
-    }
-
-    vector <size_t> col_count(st, 0);
-    for (double x : X) {
-        size_t index = (size_t)((x - min) / (max - min)*st);
-        if (x == max) {
-            index = index - 1;
+        convert (X[i], 'K');
+        if (!cin) {
+            cerr << "Necorrectniyi vvod";
+            return 1;
         }
-        col_count[index] = col_count[index] + 1;
     }
-
+    double min = X[0].temp;
+    double max = X[0].temp;
+    for (Temperature x : X) {
+        double y = convert(x, 'K');
+        if (y < min) {
+                min = y;
+            }
+        if (y > max) {
+                max = y;
+            }
+        }
+    vector<size_t> col_count(st, 0);
+    for (Temperature x : X) {
+        size_t index = (size_t)((x.temp - min) / (max - min) * st);
+        if (x.temp == max) {
+                index--;
+        }
+        col_count[index]++;
+        }
     const size_t screen_width = 80;
     const size_t axis_width = 4;
-
-    cerr << "\nGistograma:\n";
-
-   /* cout << "+";
-    for (int j = 1; j<=(number+4); j++) {
-        cout << "-";
-    }
-    cout << "+"<< '\n'; */
 
 
     for (int i = 0; i < st; i++) {
         if (col_count[i] < 10) {
-            cout << "|" << "  " << col_count[i] <<"|";
-        }
+                cout << "|" << "  " << col_count[i] << "|";
+            }
         if (col_count[i] > 10 && col_count[i] < 100) {
-            cout << "|" << " " << col_count[i] <<"|";
-        }
+                cout << "|" << " " << col_count[i] << "|";
+            }
         if (col_count[i] >= 100 && col_count[i] < 1000) {
-            cout << "|" << col_count[i] <<"|";
-        }
+                cout << "|" << col_count[i] << "|";
+            }
         if (col_count[i] == 0) {
-            cout << "*";
-        }
-
-        for (int j = 0; j < (number+5); j++){
-            if (j < col_count[i]) {
                 cout << "*";
             }
-            else cout << " ";
 
-            if (j == (number-1) && col_count[i] != 0) {
-                cout << "|";
+        for (int j = 0; j < (number + 5); j++) {
+                if (j < col_count[i]) {
+                    cout << "*";
+                }
+                else cout << " ";
+
+                if (j == (number - 1) && col_count[i] != 0) {
+                    cout << "|";
+                }
+                if (j == (number - 2) && col_count[i] == 0) {
+                    cout << "|";
+                }
             }
-            if (j == (number - 2) && col_count[i] == 0) {
-                cout << "|";
+            if (col_count[i] > 74) {
+                break;
             }
+            cout << '\n';
         }
-        if (col_count[i] > 74) {
-            break;
-        }
-        cout << '\n';
-    }
-    /*cout << "+";
-    for (int j = 1; j<= (number + 4); j++) {
-        cout << "-";
-    }
-    cout << "+" << '\n'; */
 
     return 0;
 }
