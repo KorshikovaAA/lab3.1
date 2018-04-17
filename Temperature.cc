@@ -1,6 +1,7 @@
 //
 // Created by u211-15 on 03.04.2018.
 //
+#include <iostream>
 #include"Temperature.h"
 using namespace std;
 istream & operator >> (istream&in, Temperature&Temp){
@@ -48,4 +49,12 @@ Temperature operator/ (const Temperature& lhs, const Temperature& rhs)
     ret_temp.temp='K';
     return ret_temp;
 }
+Temperature operator* (const Temperature& lhs, const Temperature& rhs)
+{
+    Temperature ret_temp;
+    ret_temp.temp=convert(lhs,'K')*convert(rhs,'K');
+    ret_temp.temp='K';
+    return ret_temp;
+}
+
 
