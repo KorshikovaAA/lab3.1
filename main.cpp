@@ -29,30 +29,32 @@ main(){
     size_t count;
     cerr << "Vvedite kolichestvo peremennyh:\n";
     cin >> count;
-    vector<double>element(count);
+    vector<Temperature>element(count);
     cerr << "\nVvedite "<<count<<" elementov:\n";
     for (size_t i = 0; i < count; i++) {
         cin >> element[i];
-
+        if (cin.fail())
+        {return -1;}
+        convert(element[i],'K');
     }
     size_t col_count;
         cerr << "\n chislo stolbtsov";
         cin >> col_count;
         cerr << "\n";
-        double min = element[0], max = element[0];
-        for (double x:element) {
-            if (x < min) {
-                min = x;
+        double min = element[0].temp, max = element[0].temp;
+        for (Temperature x:element) {
+            if (x.temp < min) {
+                min = x.temp;
             }
-            if (x > max) {
-                max = x;
+            if (x.temp > max) {
+                max = x.temp;
             }
         }
 
         vector<size_t> bins(col_count, 0);
-        for (double x : element) {
-            size_t index = (size_t) ((x - min) / (max - min) * col_count);
-            if (x == max) {
+        for (Temperature x : element) {
+            size_t index = (size_t) ((x.temp - min) / (max - min) * col_count);
+            if (x.temp == max) {
                 index--;
             }
             bins[index]++;

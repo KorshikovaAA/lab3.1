@@ -5,6 +5,7 @@
 #include"Temperature.h"
 using namespace std;
 istream & operator >> (istream& in, Temperature& Temp){
+    in.setstate(ios_base::goodbit);
     in>>Temp.temp;
     in>>Temp.scale;
 

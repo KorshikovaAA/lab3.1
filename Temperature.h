@@ -19,9 +19,9 @@ struct Temperature{
     char scale;
 };
 istream & operator >> (istream& in, Temperature& Temp);
-double convert (const Temperature& Temp, char scale_to);
 bool operator < (const Temperature& lhs, const Temperature& rhs);
 Temperature operator- (const Temperature& lhs, const Temperature& rhs);
 Temperature operator/ (const Temperature& lhs, const Temperature& rhs);
 Temperature operator*(const Temperature& lhs, const Temperature& rhs);
+double convert (const Temperature& Temp, char scale_to);
 #endif //UNTITLED_TEMPERATURE_H
