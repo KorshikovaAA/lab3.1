@@ -58,6 +58,11 @@ bool operator < (const Temperature& lhs, const Temperature& rhs)
 {
     return convert(lhs,'K') < convert(rhs,'K');
 }
+bool operator < (const Temperature& lhs, const float& rhs)
+{
+    return convert(lhs,'K') < rhs;
+}
+
 Temperature operator- (const Temperature& lhs, const Temperature& rhs)
 {
     Temperature ret_temp;

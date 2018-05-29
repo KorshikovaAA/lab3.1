@@ -17,8 +17,12 @@ main() {
 		{
 			return -1;
 		}
-		convert(element[i], 'K');
+		element[i].temp=convert(element[i], 'K');
+        element[i].scale='K';
 	}
+
+
+
 	size_t col_count;
 	cerr << "\nVvedite chislo stolbtsov:\n";
 	cin >> col_count;
@@ -53,7 +57,7 @@ main() {
 	if (maxbins > 76)
 		koef = (double)(1 - (maxbins - 76) / (maxbins));
 
-	cerr << "Gistograma:\n";
+
 	cout << "+";
 	for (j = 1; j <= count + 4; j++) {
 		cout << "-";

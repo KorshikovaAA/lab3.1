@@ -16,6 +16,7 @@ int main (){
     assert(Temp.temp==10);
     assert(Temp.scale=='C');
 
+
     istringstream iss1("0K");
     iss1>>Temp;
     assert(Temp.temp==0);

@@ -7,6 +7,6 @@ set(SOURCE_FILES main.cpp Temperature.cc)
 add_executable(untitled ${SOURCE_FILES})
 
 
-add_executable(test_input Temperature.cc)
+add_executable(test_input test_input.cpp Temperature.cc)
 enable_testing()
 add_test(NAME test_input COMMAND test_input)
